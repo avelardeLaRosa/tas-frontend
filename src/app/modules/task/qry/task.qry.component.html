@@ -1,0 +1,57 @@
+<div class="w-full">
+
+  <ng-container>
+    <p>
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <span>Gestión de Tareas</span>
+          <span class="example-spacer"></span>
+
+          <button [type]="'mat-icon-button'" [matTooltip]="'Limpiar'" mat-icon-button [disabled]="false"
+                  (click)="clearInputs()" [ngClass]="'mat-focus-indicator mat-icon-button mat-button-base'"
+                  class="bg-white text-black">
+            <mat-icon [class]="'sm:icon-size-6 icon-size-4'">delete</mat-icon>
+          </button>
+
+          <button [type]="'mat-icon-button'" [matTooltip]="'Filtrar'" mat-icon-button [disabled]="false"
+                  (click)="getTaskFilter()" [ngClass]="'mat-focus-indicator mat-icon-button mat-button-base'"
+                  class="bg-white text-black">
+            <mat-icon [class]="'sm:icon-size-6 icon-size-4'">filter_list</mat-icon>
+          </button>
+
+          <button [type]="'mat-icon-button'" [matTooltip]="'Agregar'" mat-icon-button [disabled]="false"
+                  (click)="goToRegister()" [ngClass]="'mat-focus-indicator mat-icon-button mat-button-base'"
+                  class="bg-white text-black">
+            <mat-icon [class]="'sm:icon-size-6 icon-size-4'">add</mat-icon>
+          </button>
+
+
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </p>
+  </ng-container>
+
+  <ng-container>
+
+    <app-filter-qry-component
+      #filter
+      [filterForm]="filterForm"
+    >
+
+    </app-filter-qry-component>
+  </ng-container>
+
+
+  <app-table-qry-component
+    #table
+    [taskList]="taskList"
+    (_dataDelete)="deleteTask($event)"
+    (_data)="goToUpdate($event)"
+    (_pageEvent)="getPaginationEvent($event)"
+  >
+
+  </app-table-qry-component>
+
+
+</div>
+

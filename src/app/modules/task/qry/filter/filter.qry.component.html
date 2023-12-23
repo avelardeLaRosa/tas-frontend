@@ -1,0 +1,28 @@
+<form [formGroup]="filterForm" class="w-full p-2 md:flex-row flex-col text-center">
+  <mat-form-field appearance="fill" class="md:max-w-56 lg:max-w-80 xl:max-w-96 p-2 w-full">
+    <mat-label>Fecha Inicio</mat-label>
+    <input formControlName="inicio" matInput [matDatepicker]="picker1">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="md:max-w-56 lg:max-w-80 xl:max-w-96 p-2 w-full">
+    <mat-label>Fecha Fin</mat-label>
+    <input formControlName="fin" matInput [matDatepicker]="picker2">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill" class="md:max-w-56 lg:max-w-80 xl:max-w-96 p-2 w-full">
+    <mat-label>Estado</mat-label>
+    <mat-select formControlName="statusOp">
+      <mat-option *ngFor="let status of statusOps" [value]="status.code">
+        {{status.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</form>

@@ -1,0 +1,100 @@
+<div class="w-full">
+  <ng-container>
+    <p>
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <span>{{title}}</span>
+          <span class="example-spacer"></span>
+
+          <button [type]="'mat-icon-button'" [matTooltip]="'Lista'" mat-icon-button [disabled]="false"
+                  (click)="goToList()" [ngClass]="'mat-focus-indicator mat-icon-button mat-button-base'"
+                  class="bg-white text-black">
+            <mat-icon [class]="'sm:icon-size-6 icon-size-4'">format_list_bulleted</mat-icon>
+          </button>
+
+          <button [type]="'mat-icon-button'" [matTooltip]="'Agregar'" mat-icon-button [disabled]="false"
+                  (click)="addTask()" [ngClass]="'mat-focus-indicator mat-icon-button mat-button-base'"
+                  class="bg-white text-black">
+            <mat-icon [class]="'sm:icon-size-6 icon-size-4'">save</mat-icon>
+          </button>
+
+
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </p>
+  </ng-container>
+
+  <form [formGroup]="taskForm" class="w-full p-2 text-center flex-col">
+
+    <mat-form-field class="p-2 w-full" appearance="fill">
+      <mat-label>Descripcion</mat-label>
+      <input type="email" matInput formControlName="descripcion"
+             placeholder="Ingrese descripción...">
+      <button *ngIf="campo('descripcion').value" matSuffix mat-icon-button aria-label="Clear"
+              (click)="campo('descripcion').reset()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="campo('descripcion').hasError('required')">
+        Descripcion es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="p-2 w-full">
+      <mat-label>Fecha Inicio</mat-label>
+      <input [min]="minDate" formControlName="fechaInicio" matInput [matDatepicker]="picker1">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+      <mat-error *ngIf="campo('fechaInicio').hasError('required')">
+        Fecha de Inicio es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="p-2 w-full">
+      <mat-label>Fecha Fin</mat-label>
+      <input [readonly]="!campo('fechaInicio').value" [min]="this.campo('fechaInicio').value" formControlName="fechaFin"
+             matInput
+             [matDatepicker]="picker2">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle [disabled]="!campo('fechaInicio').value" matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      <mat-error *ngIf="campo('fechaFin').hasError('required')">
+        Fecha de Fin es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="p-2 w-full" appearance="fill">
+      <mat-label>Usuario</mat-label>
+      <input type="text"
+             placeholder="Eliga usuario"
+             aria-label="Number"
+             matInput
+             formControlName="user"
+             [matAutocomplete]="auto">
+
+      <button *ngIf="campo('user').value" matSuffix mat-icon-button aria-label="Clear"
+              (click)="campo('user').reset()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <button [matTooltip]="'Añadir'" matSuffix mat-icon-button
+              (click)="openUserDialog()">
+        <mat-icon>person_pin</mat-icon>
+      </button>
+      <mat-error *ngIf="campo('user').hasError('required')">
+        Usuario es <strong>requerido</strong>
+      </mat-error>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let user of userList"
+          [value]="autoCompleteValue(user)"
+        >
+          {{user.nombre + ' ' + user.apellido}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+
+  </form>
+
+</div>
+

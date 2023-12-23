@@ -1,0 +1,98 @@
+<div class="w-full">
+
+  <ng-container>
+    <p>
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <span>Registrar Usuario</span>
+          <span class="example-spacer"></span>
+
+
+          <button [type]="'mat-icon-button'" [matTooltip]="'Agregar'" mat-icon-button [disabled]="false"
+                  (click)="addUser()" [ngClass]="'mat-focus-indicator mat-icon-button mat-button-base'"
+                  class="bg-white text-black">
+            <mat-icon [class]="'sm:icon-size-6 icon-size-4'">save</mat-icon>
+          </button>
+
+          <button [type]="'mat-icon-button'" [matTooltip]="'Cerrar'" mat-icon-button [disabled]="false"
+                  (click)="closeDialog()" [ngClass]="'mat-focus-indicator mat-icon-button mat-button-base'"
+                  class="bg-white text-black">
+            <mat-icon [class]="'sm:icon-size-6 icon-size-4'">close</mat-icon>
+          </button>
+
+
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </p>
+  </ng-container>
+
+  <form [formGroup]="userForm" class="w-full p-2 text-center flex-col">
+
+    <mat-form-field class="p-2 w-full" appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input type="text" matInput formControlName="nombre"
+             placeholder="Ingrese nombre...">
+      <button *ngIf="campo('nombre').value" matSuffix mat-icon-button aria-label="Clear"
+              (click)="campo('nombre').reset()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="campo('nombre').hasError('required')">
+        Nombre es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="p-2 w-full" appearance="fill">
+      <mat-label>Apellido</mat-label>
+      <input type="text" matInput formControlName="apellido"
+             placeholder="Ingrese apellido...">
+      <button *ngIf="campo('apellido').value" matSuffix mat-icon-button aria-label="Clear"
+              (click)="campo('apellido').reset()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="campo('apellido').hasError('required')">
+        Apellido es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="p-2 w-full">
+      <mat-label>Cargo</mat-label>
+      <mat-select formControlName="cargo">
+        <mat-option *ngFor="let cargo of cargos" [value]="cargo">
+          {{cargo}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="campo('cargo').hasError('required')">
+        Cargo es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="p-2 w-full" appearance="fill">
+      <mat-label>DNI</mat-label>
+      <input type="text" matInput formControlName="dni"
+             placeholder="Ingrese descripción..." maxlength="8" (keypress)="onlyNumberKey($event)">
+      <button *ngIf="campo('dni').value" matSuffix mat-icon-button aria-label="Clear"
+              (click)="campo('dni').reset()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="campo('dni').hasError('required')">
+        Dni es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="p-2 w-full" appearance="fill">
+      <mat-label>Telefono</mat-label>
+      <input type="text" matInput formControlName="telefono"
+             placeholder="Ingrese descripción..." maxlength="9" (keypress)="onlyNumberKey($event)">
+      <button *ngIf="campo('telefono').value" matSuffix mat-icon-button aria-label="Clear"
+              (click)="campo('telefono').reset()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error *ngIf="campo('telefono').hasError('required')">
+        Telefono es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+
+</div>
